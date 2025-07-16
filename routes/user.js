@@ -13,6 +13,10 @@ userRoutes.post("/login",function (req,res){
 
 userRoutes.get("/purchases",function (req,res){
 
+    res.json({
+        message : "purchase endpoints"
+    })
+
 });
 
 module.exports={
