@@ -2,7 +2,7 @@ const mongoose = require ("mongoose");
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-const users = new Schema({
+const user = new Schema({
     
     email :{type:String,unique:true}  ,
     password : String,
@@ -11,7 +11,7 @@ const users = new Schema({
 
 });
 
-const admins = new Schema ({
+const admin = new Schema ({
     
     email : {type:String,unique:true},
     password : String,
@@ -34,8 +34,8 @@ userId: ObjectId
 });
 
 
-const usersModel = mongoose.model('users',users);
-const adminModel = mongoose.model('admins',admins);
+const usersModel = mongoose.model('users',user);
+const adminModel = mongoose.model('admins',admin);
 const courseModel = mongoose.model('course',course);
 const purchasesModel = mongoose.model('purchases',purchases);
 
