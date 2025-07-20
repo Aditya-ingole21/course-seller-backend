@@ -48,15 +48,16 @@ const token = jwt.sign({id:admin._id
 
 });
 
-adminRoutes.post("course/",adminmiddleware,function(req,res) {
-    const adminid = req.adminId;
+adminRoutes.post("course/",adminmiddleware,async function(req,res) {
+    const adminId = req.adminId;
+    const {title,description,price,imageUrl} = req.body;
 
-    const course = courseModel.create({
+    const course = await  courseModel.create({
         title:title,
         description:description,
         price:price,
         imageUrl:imageUrl,
-        creatorId: adminid
+        creatorId: adminId
 
     });
     res.json({
@@ -68,11 +69,41 @@ adminRoutes.post("course/",adminmiddleware,function(req,res) {
 });
 
 
-adminRoutes.put("course/",function(req,res) {
+adminRoutes.put("course/", async function(req,res) {
+    const adminId = req.adminId;
+        const {title,description,price,imageUrl,courseid} = req.body;
+fgr
+    const course =  await courseModel.updateOne(
+        {
+            _id:courseid,
+            creatorId :adminId
+        },{
+         title:title,
+        description:description,
+        price:price,
+        imageUrl:imageUrl,
+        creatorId: adminId
+
+    })
+    res.json({
+        message:"course is updated",
+        courseid:course._id
+    })
     
 
 });
-adminRoutes.get("course/bulk",function(req,res) {
+adminRoutes.get("course/bulk", async function(req,res) {
+    const adminId = req.adminId;
+
+    const courses = await courseModel.find({
+        creatorId:adminId
+    })
+
+    res.json({
+        courses:courses
+    })
+
+
 
 });
 
