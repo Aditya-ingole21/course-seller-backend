@@ -29,7 +29,7 @@ message : "your are signed up "
 userRoutes.post("/login",function (req,res){
     const {email,password}=req.body;
 
-    const users= usersModel.find({
+    const users= usersModel.findOne({
         email:email,
         password:password
     })
@@ -46,7 +46,7 @@ const token = jwt.sign({id:users._id
 });
 
 userRoutes.get("/purchases",function (req,res){
-    const{token,}
+    
 
     res.json({
         message : "purchase endpoints"
