@@ -3,7 +3,7 @@ require ('dotenv').config();
 
 const {usersModel, purchasesModel}= require ("../db");
 // const {purchasesModel}= require ("../db")
-
+const {userMiddleware} = require ("../middleware/user");
 
 const userRoutes = Router();
 const jwt = require ("jsonwebtoken");
@@ -46,17 +46,17 @@ const token = jwt.sign({id:users._id
 
 });
 
-userRoutes.get("/purchases",function (req,res){
+userRoutes.get("/purchases", userMiddleware,  async  function (req,res){
 
     const userId = req.userId;
 
-    const courses = purchasesModel.find({
+    const courses = await purchasesModel.find({
         userId:userId
     })
     
 
     res.json({
-        courses
+        courses:courses
     })
 
 });
